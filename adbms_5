@@ -1,0 +1,211 @@
+mca@mca-HP-Pro-Tower-280-G9-E-PCI-Desktop-PC:~$ create database tcl;
+Command 'create' not found, did you mean:
+  command 'pcreate' from deb pbuilder-scripts (22)
+Try: sudo apt install <deb name>
+mca@mca-HP-Pro-Tower-280-G9-E-PCI-Desktop-PC:~$ sudo mysql;
+[sudo] password for mca: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.45-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database tcl;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create table order_details;
+ERROR 1046 (3D000): No database selected
+mysql> use tcl;
+Database changed
+mysql> create table order_details;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table order_details(order-id int primary key,product_name varchar(50),order_no int,order_date date);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order-id int primary key,product_name varchar(50),order_no int,order_date date)' at line 1
+mysql> create table order_details(order-id int primary key,product_name varchar(50),order_no int,order_date date);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order-id int primary key,product_name varchar(50),order_no int,order_date date)' at line 1
+mysql> create table order_details(order-id int primary key,product_name varchar(50),order_no int,order_date Date);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order-id int primary key,product_name varchar(50),order_no int,order_date Date)' at line 1
+mysql> create table order_details(order_id int primary key,product_name varchar(50),order_no int,order_date date);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into order_details values(1,'Laptop',234,'2000-03-02'),(2,'Desktop',456,'2001-02-02'),(3,'Keyboard',457,'2000-03-02'),(4,'Mouse',500,'2001-03-02'),(5,'Antivirus',501,'2002-03-02');
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select*from order_details;
++----------+--------------+----------+------------+
+| order_id | product_name | order_no | order_date |
++----------+--------------+----------+------------+
+|        1 | Laptop       |      234 | 2000-03-02 |
+|        2 | Desktop      |      456 | 2001-02-02 |
+|        3 | Keyboard     |      457 | 2000-03-02 |
+|        4 | Mouse        |      500 | 2001-03-02 |
+|        5 | Antivirus    |      501 | 2002-03-02 |
++----------+--------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into order_details values(6,'Printer',600,'2003-04-02'),(7,'Scanner',601,'2003-05-02');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select*from order_details;
++----------+--------------+----------+------------+
+| order_id | product_name | order_no | order_date |
++----------+--------------+----------+------------+
+|        1 | Laptop       |      234 | 2000-03-02 |
+|        2 | Desktop      |      456 | 2001-02-02 |
+|        3 | Keyboard     |      457 | 2000-03-02 |
+|        4 | Mouse        |      500 | 2001-03-02 |
+|        5 | Antivirus    |      501 | 2002-03-02 |
+|        6 | Printer      |      600 | 2003-04-02 |
+|        7 | Scanner      |      601 | 2003-05-02 |
++----------+--------------+----------+------------+
+7 rows in set (0.01 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select*from order_details;
++----------+--------------+----------+------------+
+| order_id | product_name | order_no | order_date |
++----------+--------------+----------+------------+
+|        1 | Laptop       |      234 | 2000-03-02 |
+|        2 | Desktop      |      456 | 2001-02-02 |
+|        3 | Keyboard     |      457 | 2000-03-02 |
+|        4 | Mouse        |      500 | 2001-03-02 |
+|        5 | Antivirus    |      501 | 2002-03-02 |
++----------+--------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from oreder_details where order_id in(4,5);
+ERROR 1146 (42S02): Table 'tcl.oreder_details' doesn't exist
+mysql> delete from order_details where order_id in(4,5);
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> select*from order_details;
++----------+--------------+----------+------------+
+| order_id | product_name | order_no | order_date |
++----------+--------------+----------+------------+
+|        1 | Laptop       |      234 | 2000-03-02 |
+|        2 | Desktop      |      456 | 2001-02-02 |
+|        3 | Keyboard     |      457 | 2000-03-02 |
++----------+--------------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select*from order_details;
++----------+--------------+----------+------------+
+| order_id | product_name | order_no | order_date |
++----------+--------------+----------+------------+
+|        1 | Laptop       |      234 | 2000-03-02 |
+|        2 | Desktop      |      456 | 2001-02-02 |
+|        3 | Keyboard     |      457 | 2000-03-02 |
++----------+--------------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> savepoint svp=update;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=update' at line 1
+mysql> savepoint svp_update;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update order_details set product_name="Gaming keyboard" where order_no=457;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> insert into order_details values(8,'Speaker',700,'2004-01-01'),(9,'Webcam',701,'2004-02-01');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> savepoint svp_delete;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from order_details where product_name='Desktop';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from order_details;
++----------+-----------------+----------+------------+
+| order_id | product_name    | order_no | order_date |
++----------+-----------------+----------+------------+
+|        1 | Laptop          |      234 | 2000-03-02 |
+|        3 | Gaming keyboard |      457 | 2000-03-02 |
+|        8 | Speaker         |      700 | 2004-01-01 |
+|        9 | Webcam          |      701 | 2004-02-01 |
++----------+-----------------+----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> tollback to svp_delete;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tollback to svp_delete' at line 1
+mysql> rollback to svp_delete;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from order_details;
++----------+-----------------+----------+------------+
+| order_id | product_name    | order_no | order_date |
++----------+-----------------+----------+------------+
+|        1 | Laptop          |      234 | 2000-03-02 |
+|        2 | Desktop         |      456 | 2001-02-02 |
+|        3 | Gaming keyboard |      457 | 2000-03-02 |
+|        8 | Speaker         |      700 | 2004-01-01 |
+|        9 | Webcam          |      701 | 2004-02-01 |
++----------+-----------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> rollback to svp_update;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select*from order_details;
++----------+--------------+----------+------------+
+| order_id | product_name | order_no | order_date |
++----------+--------------+----------+------------+
+|        1 | Laptop       |      234 | 2000-03-02 |
+|        2 | Desktop      |      456 | 2001-02-02 |
+|        3 | Keyboard     |      457 | 2000-03-02 |
++----------+--------------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> set autocommit=1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create USER 'user1' @'local host' identifiedby'1234';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'identifiedby'1234'' at line 1
+mysql> ^Ceate USER 'user1' @ 'local host' identified by '1234'
+mysql> sudo mysql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sudo mysql' at line 1
+mysql> show grant for 'user1'@'localhost';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'grant for 'user1'@'localhost'' at line 1
+mysql> show grants for 'user1'@'localhost';
++----------------------------------------------------------------------+
+| Grants for user1@localhost                                           |
++----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user1`@`localhost`                            |
+| GRANT ALL PRIVILEGES ON `tcl`.`order_details` TO `user1`@`localhost` |
++----------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke insert,delete on oredr_details from 'user'@'localhost';
+ERROR 1147 (42000): There is no such grant defined for user 'user' on host 'localhost' on table 'oredr_details'
+mysql> revoke insert,delete on order_details from 'user'@'localhost';
+ERROR 1147 (42000): There is no such grant defined for user 'user' on host 'localhost' on table 'order_details'
+mysql> revoke insert,delete on order_details from 'user1'@'localhost';
+Query OK, 0 rows affected (0.02 sec)
+
