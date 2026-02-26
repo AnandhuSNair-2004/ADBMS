@@ -1,0 +1,356 @@
+mca@mca-HP-Pro-Tower-280-G9-E-PCI-Desktop-PC:~$ sudo mysqll
+[sudo] password for mca: 
+sudo: mysqll: command not found
+mca@mca-HP-Pro-Tower-280-G9-E-PCI-Desktop-PC:~$ sudo mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.45-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> ^C
+mysql> select*from employee
+    -> ^C
+mysql> pwd
+    -> ^C
+mysql> use test
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select*from employee
+    -> ^C
+mysql> select*from employee;
++--------+----------+-------------+------------+--------+--------+
+| emp_no | emp_name | Designation | ph_no      | salary | dep_no |
++--------+----------+-------------+------------+--------+--------+
+|      1 | Anu      | Manager     | 9876543210 |  45000 |    101 |
+|      2 | Veena    | Analyst     | 9123456780 |  30000 |    102 |
+|      3 | Arun     | Clerk       | 9988776655 |  15000 |    103 |
+|      4 | Asha     | Analyst     | 8899776655 |  28000 |    104 |
+|      5 | Ravi     | Manager     | 7788996655 |  50000 |    105 |
+|      6 | Neha     | clerk       | 6677889955 |   5000 |    106 |
+|      7 | Amit     | Analyst     | 9546834657 |  22000 |    107 |
+|      8 | John     | clerk       | 7586978654 |  18000 |    108 |
+|      9 | Kiran    | Manager     | 9495624637 |  60000 |    109 |
+|     10 | Alex     | Analyst     | 946456778  |  32000 |    110 |
++--------+----------+-------------+------------+--------+--------+
+10 rows in set (0.02 sec)
+
+mysql> select*from department;
+ERROR 1146 (42S02): Table 'test.department' doesn't exist
+mysql> select*from departments;
++--------+
+| dep_no |
++--------+
+|    101 |
+|    102 |
+|    103 |
+|    104 |
+|    105 |
+|    106 |
+|    107 |
+|    108 |
+|    109 |
+|    110 |
++--------+
+10 rows in set (0.02 sec)
+
+mysql> select emp_no,emp_name
+    -> 
+    -> ^C
+mysql> select emp_no,emp_name from employee where dept_no=2;
+ERROR 1054 (42S22): Unknown column 'dept_no' in 'where clause'
+mysql> select emp_no,emp_name from employee where dep_no=2;
+Empty set (0.00 sec)
+
+mysql> select emp_no,emp_name from employee where dep_no=102;
++--------+----------+
+| emp_no | emp_name |
++--------+----------+
+|      2 | Veena    |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql> select emp_no,emp_name,Designation,dep_no,salary from employee order by salary desc;
++--------+----------+-------------+--------+--------+
+| emp_no | emp_name | Designation | dep_no | salary |
++--------+----------+-------------+--------+--------+
+|      9 | Kiran    | Manager     |    109 |  60000 |
+|      5 | Ravi     | Manager     |    105 |  50000 |
+|      1 | Anu      | Manager     |    101 |  45000 |
+|     10 | Alex     | Analyst     |    110 |  32000 |
+|      2 | Veena    | Analyst     |    102 |  30000 |
+|      4 | Asha     | Analyst     |    104 |  28000 |
+|      7 | Amit     | Analyst     |    107 |  22000 |
+|      8 | John     | clerk       |    108 |  18000 |
+|      3 | Arun     | Clerk       |    103 |  15000 |
+|      6 | Neha     | clerk       |    106 |   5000 |
++--------+----------+-------------+--------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select emp_no,emp_name from employee where salary between 20000 and 50000;
++--------+----------+
+| emp_no | emp_name |
++--------+----------+
+|      1 | Anu      |
+|      2 | Veena    |
+|      4 | Asha     |
+|      5 | Ravi     |
+|      7 | Amit     |
+|     10 | Alex     |
++--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select distinct designation from employee;
++-------------+
+| designation |
++-------------+
+| Manager     |
+| Analyst     |
+| Clerk       |
++-------------+
+3 rows in set (0.02 sec)
+
+mysql> update employee set salary=45000 where designation='Manager';
+Query OK, 2 rows affected (0.03 sec)
+Rows matched: 3  Changed: 2  Warnings: 0
+
+mysql> select*from employee;
++--------+----------+-------------+------------+--------+--------+
+| emp_no | emp_name | Designation | ph_no      | salary | dep_no |
++--------+----------+-------------+------------+--------+--------+
+|      1 | Anu      | Manager     | 9876543210 |  45000 |    101 |
+|      2 | Veena    | Analyst     | 9123456780 |  30000 |    102 |
+|      3 | Arun     | Clerk       | 9988776655 |  15000 |    103 |
+|      4 | Asha     | Analyst     | 8899776655 |  28000 |    104 |
+|      5 | Ravi     | Manager     | 7788996655 |  45000 |    105 |
+|      6 | Neha     | clerk       | 6677889955 |   5000 |    106 |
+|      7 | Amit     | Analyst     | 9546834657 |  22000 |    107 |
+|      8 | John     | clerk       | 7586978654 |  18000 |    108 |
+|      9 | Kiran    | Manager     | 9495624637 |  45000 |    109 |
+|     10 | Alex     | Analyst     | 946456778  |  32000 |    110 |
++--------+----------+-------------+------------+--------+--------+
+10 rows in set (0.00 sec)
+
+mysql> update employee set ph_no='999999999' where emp_name='veena;'
+    -> ^C
+mysql> update employee set ph_no='999999999' where emp_name='veena';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> s
+    -> ^C
+mysql> select*from employee;
++--------+----------+-------------+------------+--------+--------+
+| emp_no | emp_name | Designation | ph_no      | salary | dep_no |
++--------+----------+-------------+------------+--------+--------+
+|      1 | Anu      | Manager     | 9876543210 |  45000 |    101 |
+|      2 | Veena    | Analyst     | 999999999  |  30000 |    102 |
+|      3 | Arun     | Clerk       | 9988776655 |  15000 |    103 |
+|      4 | Asha     | Analyst     | 8899776655 |  28000 |    104 |
+|      5 | Ravi     | Manager     | 7788996655 |  45000 |    105 |
+|      6 | Neha     | clerk       | 6677889955 |   5000 |    106 |
+|      7 | Amit     | Analyst     | 9546834657 |  22000 |    107 |
+|      8 | John     | clerk       | 7586978654 |  18000 |    108 |
+|      9 | Kiran    | Manager     | 9495624637 |  45000 |    109 |
+|     10 | Alex     | Analyst     | 946456778  |  32000 |    110 |
++--------+----------+-------------+------------+--------+--------+
+10 rows in set (0.00 sec)
+
+mysql> delete from employee where salary=5000;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from employee;
++--------+----------+-------------+------------+--------+--------+
+| emp_no | emp_name | Designation | ph_no      | salary | dep_no |
++--------+----------+-------------+------------+--------+--------+
+|      1 | Anu      | Manager     | 9876543210 |  45000 |    101 |
+|      2 | Veena    | Analyst     | 999999999  |  30000 |    102 |
+|      3 | Arun     | Clerk       | 9988776655 |  15000 |    103 |
+|      4 | Asha     | Analyst     | 8899776655 |  28000 |    104 |
+|      5 | Ravi     | Manager     | 7788996655 |  45000 |    105 |
+|      7 | Amit     | Analyst     | 9546834657 |  22000 |    107 |
+|      8 | John     | clerk       | 7586978654 |  18000 |    108 |
+|      9 | Kiran    | Manager     | 9495624637 |  45000 |    109 |
+|     10 | Alex     | Analyst     | 946456778  |  32000 |    110 |
++--------+----------+-------------+------------+--------+--------+
+9 rows in set (0.00 sec)
+
+mysql> select emp-name,ph_no from employee where emp_name like'A%';
+ERROR 1054 (42S22): Unknown column 'emp' in 'field list'
+mysql> select emp_name,ph_no from employee where emp_name like'A%';
++----------+------------+
+| emp_name | ph_no      |
++----------+------------+
+| Anu      | 9876543210 |
+| Arun     | 9988776655 |
+| Asha     | 8899776655 |
+| Amit     | 9546834657 |
+| Alex     | 946456778  |
++----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select *from employee where length(emp_name)>=3 and salary>20000;
++--------+----------+-------------+------------+--------+--------+
+| emp_no | emp_name | Designation | ph_no      | salary | dep_no |
++--------+----------+-------------+------------+--------+--------+
+|      1 | Anu      | Manager     | 9876543210 |  45000 |    101 |
+|      2 | Veena    | Analyst     | 999999999  |  30000 |    102 |
+|      4 | Asha     | Analyst     | 8899776655 |  28000 |    104 |
+|      5 | Ravi     | Manager     | 7788996655 |  45000 |    105 |
+|      7 | Amit     | Analyst     | 9546834657 |  22000 |    107 |
+|      9 | Kiran    | Manager     | 9495624637 |  45000 |    109 |
+|     10 | Alex     | Analyst     | 946456778  |  32000 |    110 |
++--------+----------+-------------+------------+--------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select*from employee where emp_no in('1','2','7');
++--------+----------+-------------+------------+--------+--------+
+| emp_no | emp_name | Designation | ph_no      | salary | dep_no |
++--------+----------+-------------+------------+--------+--------+
+|      1 | Anu      | Manager     | 9876543210 |  45000 |    101 |
+|      2 | Veena    | Analyst     | 999999999  |  30000 |    102 |
+|      7 | Amit     | Analyst     | 9546834657 |  22000 |    107 |
++--------+----------+-------------+------------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select emp_name,emp_no from employee where designation in('Manager','Analyst');
++----------+--------+
+| emp_name | emp_no |
++----------+--------+
+| Anu      |      1 |
+| Veena    |      2 |
+| Asha     |      4 |
+| Ravi     |      5 |
+| Amit     |      7 |
+| Kiran    |      9 |
+| Alex     |     10 |
++----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select dep_no count(*)  as table-employee from employee group by dep_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'count(*)  as table-employee from employee group by dep_no' at line 1
+mysql> select dep_no Count(*) as table-employee from employee Group by dep_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Count(*) as table-employee from employee Group by dep_no' at line 1
+mysql> select dep_no Count(*) as total_employee from employee Group by dep_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Count(*) as total_employee from employee Group by dep_no' at line 1
+mysql> select dep_no Count(*) as total-employee from employee Group by dep_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Count(*) as total-employee from employee Group by dep_no' at line 1
+mysql> select dep_no Count(*) As total-employees from employee Group by dep_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Count(*) As total-employees from employee Group by dep_no' at line 1
+mysql> ^C
+mysql> select dep_no,Count(*) As total-employees from employee Group by dep_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-employees from employee Group by dep_no' at line 1
+mysql> select dep_no,Count(*) As total-employee from employee Group by dep_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-employee from employee Group by dep_no' at line 1
+mysql> select dep_no,Count(*) As total_employee from employee Group by dep_no;
++--------+----------------+
+| dep_no | total_employee |
++--------+----------------+
+|    101 |              1 |
+|    102 |              1 |
+|    103 |              1 |
+|    104 |              1 |
+|    105 |              1 |
+|    107 |              1 |
+|    108 |              1 |
+|    109 |              1 |
+|    110 |              1 |
++--------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> select dep_no,avg(salary) As avg_salary from employee Group by dep_no;
++--------+------------+
+| dep_no | avg_salary |
++--------+------------+
+|    101 | 45000.0000 |
+|    102 | 30000.0000 |
+|    103 | 15000.0000 |
+|    104 | 28000.0000 |
+|    105 | 45000.0000 |
+|    107 | 22000.0000 |
+|    108 | 18000.0000 |
+|    109 | 45000.0000 |
+|    110 | 32000.0000 |
++--------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select dep_no,max(salary) as highest_salary, min(salary) as lowest_salary from employee group by dep_no;
++--------+----------------+---------------+
+| dep_no | highest_salary | lowest_salary |
++--------+----------------+---------------+
+|    101 |          45000 |         45000 |
+|    102 |          30000 |         30000 |
+|    103 |          15000 |         15000 |
+|    104 |          28000 |         28000 |
+|    105 |          45000 |         45000 |
+|    107 |          22000 |         22000 |
+|    108 |          18000 |         18000 |
+|    109 |          45000 |         45000 |
+|    110 |          32000 |         32000 |
++--------+----------------+---------------+
+9 rows in set (0.00 sec)
+
+mysql> select dep_no, avg(salary) as avg_salary from employee where dep_no<>'1' group by dep_no;
++--------+------------+
+| dep_no | avg_salary |
++--------+------------+
+|    101 | 45000.0000 |
+|    102 | 30000.0000 |
+|    103 | 15000.0000 |
+|    104 | 28000.0000 |
+|    105 | 45000.0000 |
+|    107 | 22000.0000 |
+|    108 | 18000.0000 |
+|    109 | 45000.0000 |
+|    110 | 32000.0000 |
++--------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select dep_no,avg(salary) as avg_salary frpmmysql> select dep_no Count(*) As total-employees from employee Group by dep_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'frpmmysql> select dep_no Count(*) As total-employees from employee Group by dep_' at line 1
+mysql> ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Count(*) As total-employees from employee Group by dep_no' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ERROR 1064 (42000): You have an error in your SQL syntax' at line 1
+    -> mysql> ^C
+    -> ^C
+mysql> select dep_no,avg(salary) as avg_salary frpmmysql> select dep_no Count(*) As total-employees from employee Group by dep_no;^C
+mysql> ^C
+mysql> select dep_no,avg(salary) as avg_salary from employee where dep_no<>'1' having avg(salary)>20000 order by avg_salary asc;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'test.employee.dep_no'; this is incompatible with sql_mode=only_full_group_by
+mysql> select dep_no,avg(salary) as avg_salary from employee where dep_no<>'1' group by dep-no  having avg(salary)>20000 order by avg_salary asc;
+ERROR 1054 (42S22): Unknown column 'dep' in 'group statement'
+mysql> select dep_no,avg(salary) as avg_salary from employee where dep_no<>'1' group by dep_no  having avg(salary)>20000 order by avg_salary asc;
++--------+------------+
+| dep_no | avg_salary |
++--------+------------+
+|    107 | 22000.0000 |
+|    104 | 28000.0000 |
+|    102 | 30000.0000 |
+|    110 | 32000.0000 |
+|    101 | 45000.0000 |
+|    105 | 45000.0000 |
+|    109 | 45000.0000 |
++--------+------------+
+7 rows in set (0.00 sec)
+
+mysql> mysql> select dep_no Count(*) As total-employees from employee Group by dep_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> select dep_no Count(*) As total-employees from employee Group by dep_no' at line 1
+mysql> ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Count(*) As total-employees from employee Group by dep_no' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ERROR 1064 (42000): You have an error in your SQL syntax' at line 1
+    -> mysql> ^C
+    -> mysql> select dep_no Count(*) As total-employees from employee Group by dep_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'the manual that corresponds to your MySQL server version for the right syntax to' at line 1
+mysql> ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Count(*) As total-employees from employee Group by dep_no' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ERROR 1064 (42000): You have an error in your SQL syntax' at line 1
+    -> mysql> ^C
+    -> ^C
+mysql> 
+
+

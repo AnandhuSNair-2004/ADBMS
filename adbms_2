@@ -1,0 +1,245 @@
+mca@mca-HP-Pro-Tower-280-G9-E-PCI-Desktop-PC:~$ sudo mysql
+[sudo] password for mca: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.44-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database Office;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+[1]+  Stopped                 sudo mysql
+mca@mca-HP-Pro-Tower-280-G9-E-PCI-Desktop-PC:~$ sudo mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.44-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use office
+ERROR 1049 (42000): Unknown database 'office'
+mysql> crete database office;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'crete database office' at line 1
+mysql> create database office;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> create table employee(emp_no int(10) primary key,emp_name varchar(25),place  varchar(25),ph_no int(10),dep_name varchar(25),job_id int(10),salary int(10));
+ERROR 1046 (3D000): No database selected
+mysql> DESC employee
+    -> DESC employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DESC employee' at line 2
+mysql> DESC employee;
+ERROR 1046 (3D000): No database selected
+mysql> create table employee(emp_no int(10) primary key,emp_name varchar(25),place  varchar(25),ph_no int(10),dep_name varchar(25),job_id int(10),salary int(10));
+ERROR 1046 (3D000): No database selected
+mysql> use office
+Database changed
+mysql> create table employee(emp_no int(10) primary key,emp_name varchar(25),place  varchar(25),ph_no int(10),dep_name varchar(25),job_id int(10),salary int(10));
+Query OK, 0 rows affected, 4 warnings (0.05 sec)
+
+mysql> DESC employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_no   | int         | NO   | PRI | NULL    |       |
+| emp_name | varchar(25) | YES  |     | NULL    |       |
+| place    | varchar(25) | YES  |     | NULL    |       |
+| ph_no    | int         | YES  |     | NULL    |       |
+| dep_name | varchar(25) | YES  |     | NULL    |       |
+| job_id   | int         | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> create table department;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table department(dep_no int(10),dep_name varchar(25),emp_name varchar(25));
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+mysql> DESC department
+    -> DESC department;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DESC department' at line 2
+mysql> DESC department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dep_no   | int         | YES  |     | NULL    |       |
+| dep_name | varchar(25) | YES  |     | NULL    |       |
+| emp_name | varchar(25) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table department drop dep_name;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dep_no   | int         | YES  |     | NULL    |       |
+| emp_name | varchar(25) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> alter table department add emp_no int(10);
+Query OK, 0 rows affected, 1 warning (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> DESC department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dep_no   | int         | YES  |     | NULL    |       |
+| emp_name | varchar(25) | YES  |     | NULL    |       |
+| emp_no   | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employee modify job_id varchar(10);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_no   | int         | NO   | PRI | NULL    |       |
+| emp_name | varchar(25) | YES  |     | NULL    |       |
+| place    | varchar(25) | YES  |     | NULL    |       |
+| ph_no    | int         | YES  |     | NULL    |       |
+| dep_name | varchar(25) | YES  |     | NULL    |       |
+| job_id   | varchar(10) | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee modify emp_no e_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'e_no' at line 1
+mysql> alter table employee rename column emp_no to e_no;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| e_no     | int         | NO   | PRI | NULL    |       |
+| emp_name | varchar(25) | YES  |     | NULL    |       |
+| place    | varchar(25) | YES  |     | NULL    |       |
+| ph_no    | int         | YES  |     | NULL    |       |
+| dep_name | varchar(25) | YES  |     | NULL    |       |
+| job_id   | varchar(10) | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee add hire_date Date;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| e_no      | int         | NO   | PRI | NULL    |       |
+| emp_name  | varchar(25) | YES  |     | NULL    |       |
+| place     | varchar(25) | YES  |     | NULL    |       |
+| ph_no     | int         | YES  |     | NULL    |       |
+| dep_name  | varchar(25) | YES  |     | NULL    |       |
+| job_id    | varchar(10) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
+| hire_date | date        | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table employee modify  job_id varchar(20);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| e_no      | int         | NO   | PRI | NULL    |       |
+| emp_name  | varchar(25) | YES  |     | NULL    |       |
+| place     | varchar(25) | YES  |     | NULL    |       |
+| ph_no     | int         | YES  |     | NULL    |       |
+| dep_name  | varchar(25) | YES  |     | NULL    |       |
+| job_id    | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
+| hire_date | date        | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table employee drop hire_date Date;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Date' at line 1
+mysql> alter table employee drop column hire-date Date;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-date Date' at line 1
+mysql> alter table employee drop column hire-date;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-date' at line 1
+mysql> alter table employee drop column hire_date;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| e_no     | int         | NO   | PRI | NULL    |       |
+| emp_name | varchar(25) | YES  |     | NULL    |       |
+| place    | varchar(25) | YES  |     | NULL    |       |
+| ph_no    | int         | YES  |     | NULL    |       |
+| dep_name | varchar(25) | YES  |     | NULL    |       |
+| job_id   | varchar(20) | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> rename table employee to emp;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| e_no     | int         | NO   | PRI | NULL    |       |
+| emp_name | varchar(25) | YES  |     | NULL    |       |
+| place    | varchar(25) | YES  |     | NULL    |       |
+| ph_no    | int         | YES  |     | NULL    |       |
+| dep_name | varchar(25) | YES  |     | NULL    |       |
+| job_id   | varchar(20) | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> drop table emp;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show tables;
++------------------+
+| Tables_in_office |
++------------------+
+| department       |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> ^C
+mysql> 
+

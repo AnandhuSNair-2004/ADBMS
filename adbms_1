@@ -1,0 +1,159 @@
+mca@mca-HP-Pro-Tower-280-G9-E-PCI-Desktop-PC:~$ sudo mysql
+[sudo] password for mca: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.44-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database college
+    -> use college
+    -> clear
+    -> 
+[1]+  Stopped                 sudo mysql
+mca@mca-HP-Pro-Tower-280-G9-E-PCI-Desktop-PC:~$ create database college;
+Command 'create' not found, did you mean:
+  command 'pcreate' from deb pbuilder-scripts (22)
+Try: sudo apt install <deb name>
+mca@mca-HP-Pro-Tower-280-G9-E-PCI-Desktop-PC:~$ sudo mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.44-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database college;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use college;
+Database changed
+mysql> pwd
+    -> use college;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'pwd
+use college' at line 1
+mysql> use college;
+Database changed
+mysql> create table student(Roll_no int(10),Name VARCHAR(20),Dob Date,Place VARCHAR(25),Ph_no int(12));
+Query OK, 0 rows affected, 2 warnings (0.05 sec)
+
+mysql> create table course(Course_code VARCHAR(12),Course_name(25),Credit int(10));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(25),Credit int(10))' at line 1
+mysql> create table course(Course_code VARCHAR(12),Course_name VARCHAR(25),Credit int(10));
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+mysql> Show tables;
++-------------------+
+| Tables_in_college |
++-------------------+
+| course            |
+| student           |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> DESC student
+    -> DESC student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DESC student' at line 2
+mysql> DESC student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Roll_no | int         | YES  |     | NULL    |       |
+| Name    | varchar(20) | YES  |     | NULL    |       |
+| Dob     | date        | YES  |     | NULL    |       |
+| Place   | varchar(25) | YES  |     | NULL    |       |
+| Ph_no   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> DESC course;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Course_code | varchar(12) | YES  |     | NULL    |       |
+| Course_name | varchar(25) | YES  |     | NULL    |       |
+| Credit      | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table student drop Ph_no;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Roll_no | int         | YES  |     | NULL    |       |
+| Name    | varchar(20) | YES  |     | NULL    |       |
+| Dob     | date        | YES  |     | NULL    |       |
+| Place   | varchar(25) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table student add aadhar_no VARCHAR(30);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC student;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Roll_no   | int         | YES  |     | NULL    |       |
+| Name      | varchar(20) | YES  |     | NULL    |       |
+| Dob       | date        | YES  |     | NULL    |       |
+| Place     | varchar(25) | YES  |     | NULL    |       |
+| aadhar_no | varchar(30) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table student modify column Roll_no VARCHAR;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table student modify column Roll_no VARCHAR(10);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC student;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Roll_no   | varchar(10) | YES  |     | NULL    |       |
+| Name      | varchar(20) | YES  |     | NULL    |       |
+| Dob       | date        | YES  |     | NULL    |       |
+| Place     | varchar(25) | YES  |     | NULL    |       |
+| aadhar_no | varchar(30) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show tables;
++-------------------+
+| Tables_in_college |
++-------------------+
+| course            |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> drop database college;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> use college;
+ERROR 1049 (42000): Unknown database 'college'
+mysql> ^C
+mysql> 
+
