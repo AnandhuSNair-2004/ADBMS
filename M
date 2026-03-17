@@ -1,0 +1,21 @@
+Cycle – 4
+
+Experiment No: 8
+
+Familiarisation of NoSQL Database MongoDB
+
+MongoDB, the most popular NoSQL database is an open-source document-oriented database.
+
+1. Installation and configuration of NoSQL database – MongoDB
+
+2. Comparison between relational and non-relational database
+
+i. Create database details and table named student with attributes 
+
+rollno,name,department,semester,cgpa. Insert 10 records
+
+ii. Select/find row/documents where department=’MCA’
+
+iii. Update ‘MCA’ department’s semester as 1.
+
+iv. Display the table/collection
